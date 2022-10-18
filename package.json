@@ -1,0 +1,26 @@
+{
+  "name": "basic-react-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swywssaid/basic-react-boilerplate.git"
+  },
+  "author": "swywssaid",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/swywssaid/basic-react-boilerplate/issues"
+  },
+  "homepage": "https://github.com/swywssaid/basic-react-boilerplate#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
