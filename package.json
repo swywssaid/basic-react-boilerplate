@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/swywssaid/basic-react-boilerplate#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "mongoose": "^6.6.5"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
