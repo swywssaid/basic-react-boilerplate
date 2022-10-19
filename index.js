@@ -93,6 +93,17 @@ app.get("/api/users/auth", auth, (req, res) => {
   });
 });
 
+// logout 라우트
+// 로그아웃을 한다는 것은 로그인된 상태이고 auth 미들웨어를 넣어주면된다.
+app.get("/api/users/logout", auth, (req, res) => {
+  // User 모델 메소드 사용. 유저를 찾아서 업데이트 하는 메소드
+  // req.user._id를 사용할 수 있는 것은 auth 미들웨어에서 req에 user정보넣어줌.
+  User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err, user) => {
+    if (err) return res.json({ success: false, err });
+    return res.status(200).send({ success: true });
+  });
+});
+
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
