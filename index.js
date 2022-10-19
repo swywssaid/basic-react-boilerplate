@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const port = 3000;
+const { auth } = require("./middleware/auth");
 const { User } = require("./mongodb/user");
 const config = require("./config/key");
 const cookieParser = require("cookie-parser");
@@ -27,7 +28,7 @@ app.get("/", (req, res) => {
 });
 
 // 회원가입을 위한 라우트
-app.post("/register", (req, res) => {
+app.post("/api/users/register", (req, res) => {
   // 회원 가입 시 필요한 정보들을 client에서 가져오면
   // 그것들을 DB에 넣는다.
 
@@ -43,7 +44,7 @@ app.post("/register", (req, res) => {
 });
 
 // 로그인을 위한 라우트
-app.post("/login", (req, res) => {
+app.post("/api/users/login", (req, res) => {
   // 1. 요청된 이메일을 db에서 찾는다
   // User모델에서 findOne이라는 mongodb 메소드를 이용
   User.findOne({ email: req.body.email }, (err, user) => {
@@ -72,6 +73,18 @@ app.post("/login", (req, res) => {
        */
       res.cookie("x_auth", user.token).status(200).json({ loginSuccess: true, userId: user._id });
     });
+  });
+});
+
+// auth 인증 라우트
+app.use("/api/users/auth", auth, (req, res) => {
+  // 여기까지 미들웨어를 통과해 왔다는 얘기는 Authentication(인증)이 True 라는 말
+  res.status(200).json({
+    // req.user 할 수 있는 이유는 auth.js 미들웨어에서 req에 user넣어줬기때문
+    _id: req.user._id,
+
+    // 스키마에서 role 정한대로 하는 것. 여기선 0이 관리자
+    idAdmin: req.user.role === 0 ? true : false,
   });
 });
 
