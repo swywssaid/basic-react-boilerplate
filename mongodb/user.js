@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const saltRounds = 10; // salt 글자수, salt를 이용해 암호화
+const jwt = require("jsonwebtoken");
 
-const someOtherPlaintextPassword = "not_bacon";
 const userSchema = mongoose.Schema({
   name: {
     type: String,
@@ -74,6 +74,49 @@ userSchema.pre("save", function (next) {
     next();
   }
 });
+
+/**
+ * 비밀번호 비교 메소드 정의하기
+ * @param plainPassword 유저가 입력한 암호화전 비밀번호
+ */
+userSchema.methods.comparePassword = function (plainPassword, callback) {
+  /**
+   * plainPassword: 123123
+   * 암호화된 비밀번호:$2b$10$3m2xhbqBH/QmWHynTDytWOePGfudco9omId5y9owYS6xIGU5VYGNu
+   * plainPassword을 암호화 후 비교해야함. 암호화된걸 복호화해서 비교는 불가.
+   * @param plainPassword 암호화 전 비밀번호
+   * @param this.password 비밀번호 스키마 구조
+   */
+  bcrypt.compare(plainPassword, this.password, function (err, isMatch) {
+    // 비밀번호 비교 후 같지 않다면 err
+    if (err) return callback(err);
+    // 비밀번호 같다면 err: null/ isMathch: true
+    callback(null, isMatch);
+  });
+};
+
+/**
+ *
+ * @param {function} callback
+ */
+userSchema.methods.generateToken = function (callback) {
+  const user = this;
+
+  /**
+   * jsonwebtoken을 이용해서 token을 생성하기
+   * user._id + "secretToken" = token
+   * 토큰이 만들어지고 "secretToken"를 통해 user._id 찾을 수 있다.
+   * @param user._id 코드상엔 안보이지만 db에 _id 자동 생성되어있음.
+   * @return token
+   */
+  const token = jwt.sign(user._id.toHexString(), "secretToken");
+
+  user.token = token;
+  user.save(function (err, user) {
+    if (err) return callback(err);
+    callback(null, user);
+  });
+};
 
 const User = mongoose.model("User", userSchema); // 모델은 스키마를 감쌈/모델명, 스키마명
 
