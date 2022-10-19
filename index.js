@@ -83,8 +83,8 @@ app.use("/api/users/auth", auth, (req, res) => {
     // req.user 할 수 있는 이유는 auth.js 미들웨어에서 req에 user넣어줬기때문
     _id: req.user._id,
 
-    // 스키마에서 role 정한대로 하는 것. 여기선 0이 관리자
-    idAdmin: req.user.role === 0 ? true : false,
+    // 스키마에서 role 정한대로 하는 것. 여기선 0이 유저
+    idAdmin: req.user.role === 0 ? false : ture,
   });
 });
 
