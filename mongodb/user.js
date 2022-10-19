@@ -26,8 +26,8 @@ const userSchema = mongoose.Schema({
   },
   role: {
     // 어떤 유저는 관리자가 될 수 있다
-    type: Number, // 예를들면 0이면 관리자 나머지는 유저
-    default: 1, // 롤을 지정하지 않을 경우 1로 디볼트
+    type: Number, // 예를들면 0이면 유저, 특정부서는 1,2 등으로 확장 가능.
+    default: 0, // 롤을 지정하지 않을 경우 0으로 디폴트
   },
   image: String,
   token: {
