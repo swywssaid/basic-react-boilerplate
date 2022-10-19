@@ -77,14 +77,19 @@ app.post("/api/users/login", (req, res) => {
 });
 
 // auth 인증 라우트
-app.use("/api/users/auth", auth, (req, res) => {
+app.get("/api/users/auth", auth, (req, res) => {
   // 여기까지 미들웨어를 통과해 왔다는 얘기는 Authentication(인증)이 True 라는 말
   res.status(200).json({
     // req.user 할 수 있는 이유는 auth.js 미들웨어에서 req에 user넣어줬기때문
     _id: req.user._id,
 
     // 스키마에서 role 정한대로 하는 것. 여기선 0이 유저
-    idAdmin: req.user.role === 0 ? false : ture,
+    isAdmin: req.user.role === 0 ? false : ture,
+    isAuth: true,
+    email: req.user.email,
+    name: req.user.name,
+    lastname: req.user.lastname,
+    role: req.user.role,
   });
 });
 
