@@ -15,3 +15,18 @@ export function loginUser(dataToSubmit) {
     payload: request,
   };
 }
+
+/**
+ * Legister.js 회원가입
+ * @param {Object} dataToSubmit email, name, password
+ * @returns
+ */
+export function registerUser(dataToSubmit) {
+  const request = axios.post("/api/users/register", dataToSubmit).then((response) => response.data);
+
+  // request를 reducer에 보내야함.
+  return {
+    type: LOGIN_USER,
+    payload: request,
+  };
+}
