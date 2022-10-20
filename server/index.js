@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 3000;
+const port = 5000;
 const { auth } = require("./middleware/auth");
 const { User } = require("./mongodb/user");
 const config = require("./config/key");
@@ -25,6 +25,10 @@ mongoose
 
 app.get("/", (req, res) => {
   res.send("Hello World!!!");
+});
+
+app.get("/api/hello", (req, res) => {
+  res.send("LandingPage hello!!");
 });
 
 // 회원가입을 위한 라우트
