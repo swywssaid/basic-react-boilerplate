@@ -11,10 +11,10 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route exact path="/" element={<LandingPage />} />
-        <Route exact path="/LoginPage" element={<LoginPage />} />
-        <Route exact path="/RegisterPage" element={<RegisterPage />} />
-        <Route exact path="/NavBar" element={<NavBar />} />
-        <Route exact path="/Footer" element={<Footer />} />
+        <Route exact path="/login" element={<LoginPage />} />
+        <Route exact path="/register" element={<RegisterPage />} />
+        <Route exact path="/navbar" element={<NavBar />} />
+        <Route exact path="/footer" element={<Footer />} />
       </Routes>
     </BrowserRouter>
   );
