@@ -5,14 +5,15 @@ import LoginPage from "./components/views/LoginPage/LoginPage";
 import RegisterPage from "./components/views/RegisterPage/RegisterPage";
 import NavBar from "./components/views/NavBar/NavBar";
 import Footer from "./components/views/Footer/Footer";
+import Auth from "./hoc/auth";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route exact path="/" element={<LandingPage />} />
-        <Route exact path="/login" element={<LoginPage />} />
-        <Route exact path="/register" element={<RegisterPage />} />
+        <Route exact path="/" element={Auth(LandingPage, null)} />
+        <Route exact path="/login" element={Auth(LoginPage, false)} />
+        <Route exact path="/register" element={Auth(RegisterPage, false)} />
         <Route exact path="/navbar" element={<NavBar />} />
         <Route exact path="/footer" element={<Footer />} />
       </Routes>

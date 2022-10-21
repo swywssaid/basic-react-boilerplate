@@ -1,5 +1,5 @@
 // reducer 관리
-import { LOGIN_USER, REGISTER_USER } from "../_actions/types";
+import { LOGIN_USER, REGISTER_USER, AUTH_USER } from "../_actions/types";
 
 /**
  * LoginUser reducer
@@ -16,6 +16,9 @@ export default function reducer(state = {}, action) {
 
     case REGISTER_USER:
       return { ...state, registerSuccess: action.payload };
+
+    case AUTH_USER:
+      return { ...state, userData: action.payload };
 
     default:
       return state;
